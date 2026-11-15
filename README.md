@@ -1,21 +1,22 @@
-# 📊 Trade Market Analysis — Import Opportunity Scoring (Spain ← China)
+# Import opportunity scoring from EU trade data
 
-> Data-driven selection of product categories to import from China into Spain,
-> using official EU trade statistics and a transparent, configurable
-> market-scoring model.
+**Which product categories are worth importing from China into Spain?**
 
-This project answers a real business question: **which product categories are
-worth importing from China into Spain?** Instead of deciding by intuition, it
-pulls official EU external-trade data, engineers objective indicators per
-sector, and scores each one for market attractiveness.
+[![tests](https://github.com/joangordo/trade-market-analysis/actions/workflows/tests.yml/badge.svg)](https://github.com/joangordo/trade-market-analysis/actions/workflows/tests.yml)
+![Python 3](https://img.shields.io/badge/python-3-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
-It covers the full data-science cycle end to end — **API ingestion → cleaning →
-feature engineering → configurable scoring → visualisation → tests** — and is
-built around a genuine decision I was researching, not a toy dataset.
+Instead of deciding by intuition, this project pulls official EU external-trade data from
+Eurostat, engineers objective indicators per product category, and scores each one for
+market attractiveness with a transparent, configurable model.
+
+It covers the full cycle end to end (API ingestion, cleaning, feature engineering,
+configurable scoring, visualisation and tests) and is built around a real decision I was
+researching, not a toy dataset.
 
 ---
 
-## 🎯 The problem
+## The problem
 
 An importer must choose a sector before committing capital to stock, logistics
 and factory relationships. Choosing wrong is expensive. This project treats
@@ -23,7 +24,7 @@ sector selection as a data problem: it surfaces categories with **growing
 demand**, **sufficient market size**, **recent acceleration** and **high unit
 price** (a proxy for value-added and margin, rather than bulk commodity).
 
-## 🧠 Methodology
+## Methodology
 
 For each product category (4-digit HS code) four signals are computed, all
 normalised to [0, 1]:
@@ -44,7 +45,7 @@ score = w_growth·growth + w_size·size + w_momentum·momentum + w_price·price
 Default weights (0.35 / 0.20 / 0.25 / 0.20) prioritise growth and momentum, but
 can be tuned to any strategy.
 
-## 📈 Real findings (Spain ← China, 2020–2024)
+## Real findings (Spain ← China, 2020–2024)
 
 Run against live Eurostat data, the model surfaced some non-obvious insights:
 
@@ -62,7 +63,7 @@ Run against live Eurostat data, the model surfaced some non-obvious insights:
 > question ("what should I import?") into an evidence-based shortlist to
 > investigate, and flags where naïve metrics mislead.
 
-## 📁 Project structure
+## Project structure
 
 ```
 trade-market-analysis/
@@ -82,7 +83,7 @@ trade-market-analysis/
 └── README.md
 ```
 
-## 🚀 How to run
+## How to run
 
 ```bash
 # 1. Install dependencies
@@ -104,7 +105,7 @@ Results are written to `outputs/`:
 - `top_scores.png` — ranking of the most attractive categories.
 - `opportunity_map.png` — growth vs size map (the key strategic chart).
 
-## 🛠️ Engineering notes (things that went wrong, and how they were handled)
+## Engineering notes (things that went wrong, and how they were handled)
 
 Real data is messy. Two bugs worth highlighting, because solving them is the
 difference between a demo and something that works:
@@ -120,14 +121,14 @@ difference between a demo and something that works:
 
 Both are covered by the test suite and documented in the API client.
 
-## 🔍 Data sources
+## Data sources
 
 - **Eurostat — International trade in goods** (dataset `DS-045409`): official EU
   data by HS code, no API key, free.
 - Extensions: UN Comtrade, Datacomex (Spain, province-level detail),
   ITC Trade Map.
 
-## 🧪 Tests
+## Tests
 
 ```bash
 python -m pytest tests/ -v
@@ -136,18 +137,13 @@ python -m pytest tests/ -v
 The scoring logic is covered by unit tests (CAGR, normalisation, ranking,
 and edge cases: zeros, empty series, fully missing price data).
 
-## 🛣️ Possible extensions
+## Possible extensions
 
 - Company-level data (bills of lading) to identify existing competitors.
 - Spanish retail prices to estimate real margin per sector.
 - Confidence intervals on trends (bootstrap) to quantify uncertainty.
 - Province-level detail via Datacomex (e.g. what enters through Catalonia).
 
-## 📄 License
+## License
 
 MIT — free to use, modify and distribute.
-
----
-
-*Built as both a market-analysis tool and a data-science portfolio project
-applied to international trade.*
