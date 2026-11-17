@@ -124,7 +124,9 @@ Both are covered by the test suite and documented in the API client.
 ## Data sources
 
 - **Eurostat — International trade in goods** (dataset `DS-045409`): official EU
-  data by HS code, no API key, free.
+  data by HS code, no API key, free. Source: Eurostat, DS-045409 (Comext), re-used under
+  the [Eurostat copyright notice](https://ec.europa.eu/eurostat/help/copyright-notice)
+  (CC BY 4.0); data processed by the author.
 - Extensions: UN Comtrade, Datacomex (Spain, province-level detail),
   ITC Trade Map.
 
